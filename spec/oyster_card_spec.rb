@@ -11,5 +11,8 @@ describe Oystercard do
       subject.top_up(50)
       expect(subject.balance).to eq 50
     end
+    it 'Allows a maximum total balance of £90' do
+      expect { subject.top_up(91) }.to raise_error(RuntimeError, 'Total balance would exceed £90')
+    end
   end
 end
