@@ -1,13 +1,7 @@
-PATH
-  remote: .
-  specs:
-    oyster_card (0.1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.3)
-    rake (10.5.0)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -26,9 +20,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.16)
-  oyster_card!
-  rake (~> 10.0)
   rspec (~> 3.7)
 
 BUNDLED WITH
