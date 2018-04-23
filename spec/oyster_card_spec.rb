@@ -22,9 +22,9 @@ describe Oystercard do
       subject.deduct(5)
       expect(subject.balance).to eq 5
     end
-    # it 'Touches in user at journey start' do
-    #   subject.touch_in
-    #   expect(subject.in_journey?).to eq true
-    # end
+    it 'Touches in user at journey start' do
+      subject.touch_in
+      expect(subject.in_journey).to eq true
+    end
   end
 end
