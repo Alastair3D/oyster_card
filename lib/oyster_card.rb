@@ -1,9 +1,13 @@
 class Oystercard
-  attr_reader :balance, :in_journey
+  attr_reader :balance
 
   def initialize
     @balance = 0
     @in_journey = false
+  end
+
+  def in_journey?
+    @in_journey
   end
 
   def top_up(number)
@@ -19,4 +23,7 @@ class Oystercard
     @in_journey = true
   end
 
+  def touch_out
+    @in_journey = false
+  end
 end
