@@ -1,9 +1,4 @@
-RSpec.describe OysterCard do
-  it "has a version number" do
-    expect(OysterCard::VERSION).not_to be nil
-  end
+require 'oyster_card'
 
-  it "does something useful" do
-    expect(false).to eq(true)
-  end
+describe OysterCard do
 end
