@@ -27,3 +27,6 @@ class Oystercard
     @in_journey = false
   end
 end
+
+oyster = Oystercard.new
+p oyster.in_journey?
