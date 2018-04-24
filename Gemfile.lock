@@ -22,5 +22,8 @@ PLATFORMS
 DEPENDENCIES
   rspec (~> 3.7)
 
+RUBY VERSION
+   ruby 2.2.3p173
+
 BUNDLED WITH
    1.16.1
