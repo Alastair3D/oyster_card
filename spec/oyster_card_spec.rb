@@ -56,6 +56,5 @@ describe Oystercard do
       expect(subject.journey_list).to be_empty
     end
 
-
   end
 end
