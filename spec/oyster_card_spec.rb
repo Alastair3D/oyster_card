@@ -21,20 +21,10 @@ describe Oystercard do
     it 'Allows a MAXIMUM_BALANCE of £90' do
       expect { subject.top_up(91) }.to raise_error(RuntimeError)
     end
-    # it 'Deducting fare amount from balance' do
-    #   subject.top_up(10)
-    #   subject.deduct
-    #   expect(subject.balance).to eq 9
-    # end
-    it 'Touches a user in at journey start' do
-      subject.top_up(10)
-      subject.touch_in(entry_station)
-      expect(subject.entry_station).to eq 'Parsons Green'
-    end
     it 'Stores entry station' do
       subject.top_up(11)
       subject.touch_in(entry_station)
-      expect(subject.entry_station).to eq entry_station
+      expect(subject.journey[:entry]).to eq entry_station
     end
 
     it 'Deducts fare value of £1 from balance on touching out' do
@@ -42,18 +32,23 @@ describe Oystercard do
       subject.touch_in(entry_station)
       expect(subject.touch_out(exit_station)).to eq 9
     end
-    it 'Touches a user out at journey end' do
+    it 'Stores exit location' do
       subject.top_up(10)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
-      expect(subject.entry_station).to eq nil
+      expect(subject.journey[:exit]).to eq exit_station
     end
     it 'Denies entry to station if balance is less than MINIMUM_BALANCE of £1' do
        expect { subject.touch_in(entry_station) }.to raise_error(RuntimeError)
     end
-
     it 'Checks new instances of Oystercard have an empty list of journeys by default' do
-      expect(subject.journey_list).to be_empty
+      expect(subject.history).to be_empty
+    end
+    it 'Checks touching in and then out creates one journey' do
+      subject.top_up(10)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.history).not_to eq 0
     end
 
   end

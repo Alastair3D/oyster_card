@@ -1,5 +1,5 @@
 class Oystercard
-  attr_reader :balance, :entry_station,:exit_station, :journey
+  attr_reader :balance, :entry_station,:exit_station, :journey, :history
 
   MAXIMUM_BALANCE = 90
   MINIMUM_BALANCE = 1
@@ -32,6 +32,7 @@ class Oystercard
     deduct
     @entry_station = nil
     @journey[:exit] = exit_station
+    @history << @journey
     return @balance
   end
 
