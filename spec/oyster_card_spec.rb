@@ -1,7 +1,9 @@
 require 'oyster_card'
+require 'pry'
 
 describe Oystercard do
-  let(:station) { double :station }
+  let(:entry_station) { 'Parsons Green' }
+  let(:exit_station) { 'Aldgate' }
 
   context 'A new oyster card' do
     it 'Has a default balance of zero' do
@@ -26,32 +28,34 @@ describe Oystercard do
     # end
     it 'Touches a user in at journey start' do
       subject.top_up(10)
-      subject.touch_in(station)
-      expect(subject.in_journey?).to eq true
+      subject.touch_in(entry_station)
+      expect(subject.entry_station).to eq 'Parsons Green'
     end
     it 'Stores entry station' do
       subject.top_up(11)
-      subject.touch_in(station)
-      expect(subject.entry_station).to eq station
+      subject.touch_in(entry_station)
+      expect(subject.entry_station).to eq entry_station
     end
 
     it 'Deducts fare value of £1 from balance on touching out' do
       subject.top_up(10)
-      subject.touch_in(station)
-      expect(subject.touch_out).to eq 9
+      subject.touch_in(entry_station)
+      expect(subject.touch_out(exit_station)).to eq 9
     end
     it 'Touches a user out at journey end' do
       subject.top_up(10)
-      subject.touch_in(station)
-      subject.touch_out
-      expect(subject.in_journey?).to eq false
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.entry_station).to eq nil
     end
     it 'Denies entry to station if balance is less than MINIMUM_BALANCE of £1' do
-       expect { subject.touch_in(station) }.to raise_error(RuntimeError)
+       expect { subject.touch_in(entry_station) }.to raise_error(RuntimeError)
+    end
+
+    it 'Checks new instances of Oystercard have an empty list of journeys by default' do
+      expect(subject.journey_list).to be_empty
     end
 
 
   end
 end
-
-#
