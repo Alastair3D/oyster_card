@@ -46,10 +46,9 @@ class Oystercard
     @journey = {}
   end
 
-private
+  private
 
-def deduct
-  @balance -= 1
-end
-
+  def deduct
+    @balance -= 1
+  end
 end
