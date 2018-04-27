@@ -36,7 +36,7 @@ describe Oystercard do
       subject.top_up(10)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
-      expect(subject.journey[:exit]).to eq exit_station
+      expect(subject.history[0][:exit]).to eq exit_station
     end
     it 'Denies entry to station if balance is less than MINIMUM_BALANCE of £1' do
        expect { subject.touch_in(entry_station) }.to raise_error(RuntimeError)

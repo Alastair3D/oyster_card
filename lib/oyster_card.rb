@@ -11,37 +11,40 @@ class Oystercard
   end
 
   def in_journey?
-    !@journey
+    @journey != {}
   end
 
   def top_up(number)
-    raise "Sorry, £#{balance + number} would exceed maximium of £90" if (@balance + number) >= MAXIMUM_BALANCE
+    raise "Sorry, £#{balance + number} would exceed maximium of £90" if (@balance + number) > MAXIMUM_BALANCE
     @balance += number
   end
 
   def sufficient_entry_balance
-    balance > 1
+    balance > MINIMUM_BALANCE
   end
 
   def touch_in(entry_station)
     raise "Sorry, balance insufficient" if @balance < MINIMUM_BALANCE
-    adds_journey if in_journey?
-
-    @journey[:entry] = entry_station
+    if in_journey?
+      adds_journey
+    end
+    @entry_station = entry_station
+    @journey[:entry] = @entry_station
   end
 
   def touch_out(exit_station)
     deduct
     @entry_station = nil
     @journey[:exit] = exit_station
-    @history << @journey
     adds_journey
     return @balance
   end
 
   def adds_journey
     @history << @journey
-    @journey = nil
+    @journey = {}
+  end
+
 private
 
 def deduct
